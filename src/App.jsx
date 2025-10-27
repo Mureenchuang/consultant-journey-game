@@ -468,7 +468,7 @@ export default function ConsultantJourney() {
       <div className="max-w-5xl mx-auto bg-slate-900/60 rounded-2xl p-6 shadow-2xl border border-slate-700">
         <header className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-extrabold">顧問之路：The Consultant's Journey</h1>
+            <h1 className="text-2xl font-extrabold">顧問養成計劃：The Consultant's Journey</h1>
             <p className="text-sm opacity-80">模組化情境題庫 — 答題後顯示解析、補充案例與外部延伸學習。</p>
           </div>
           <div className="text-right">
