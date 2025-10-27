@@ -1,4 +1,4 @@
-# 顧問之路遊戲 (Consultant Journey Game)
+# 顧問養成計劃 (Consultant Training Program)
 
 這是一個互動式學習遊戲，透過各種專案管理、顧問應對和溝通情境，幫助玩家建立信任值與團隊默契，模擬真實顧問任務挑戰。
 
