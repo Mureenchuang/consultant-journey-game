@@ -466,69 +466,11 @@ export default function ConsultantJourney() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white p-3 sm:p-6">
       <div className="max-w-5xl mx-auto bg-slate-900/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl border border-slate-700">
-        <header className="mb-6 sm:mb-8">
-          {/* 主標題區域 */}
-          <div className="relative bg-gradient-to-r from-slate-800/80 via-slate-700/60 to-slate-800/80 rounded-xl p-6 sm:p-8 mb-4 border border-slate-600/30">
-            {/* 裝飾元素 */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 rounded-t-xl"></div>
-            
-            <div className="text-center">
-              {/* 主標題 */}
-              <div className="mb-4">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 bg-clip-text text-transparent mb-2">
-                  顧問養成計劃
-                </h1>
-                <div className="flex items-center justify-center gap-3 mb-3">
-                  <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-amber-400"></div>
-                  <h2 className="text-sm sm:text-base text-amber-300 font-semibold tracking-wider">
-                    THE CONSULTANT'S JOURNEY
-                  </h2>
-                  <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-amber-400"></div>
-                </div>
-              </div>
-
-              {/* 特色標籤 */}
-              <div className="flex flex-wrap justify-center gap-2 mb-4">
-                <span className="px-3 py-1 bg-blue-600/20 text-blue-300 rounded-full text-xs font-medium border border-blue-500/30">
-                  📚 模組化學習
-                </span>
-                <span className="px-3 py-1 bg-green-600/20 text-green-300 rounded-full text-xs font-medium border border-green-500/30">
-                  💡 實務案例
-                </span>
-                <span className="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-xs font-medium border border-purple-500/30">
-                  🔗 延伸學習
-                </span>
-              </div>
-
-              {/* 描述文字 */}
-              <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                透過互動式情境題庫，提升你的專業顧問技能
-                <br className="hidden sm:block" />
-                每道題目都包含詳細解析、真實案例與學習資源
-              </p>
-            </div>
-          </div>
-
-          {/* 分數顯示 */}
-          <div className="flex justify-center">
-            <div className="bg-slate-800/60 px-6 py-3 rounded-xl border border-slate-600/50 shadow-lg">
-              <div className="flex items-center gap-6">
-                <div className="text-center">
-                  <div className="text-xs text-gray-400 mb-1">信任值</div>
-                  <div className={`text-xl font-bold ${trust >= 70 ? 'text-green-400' : trust >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
-                    {trust}
-                  </div>
-                </div>
-                <div className="w-px h-8 bg-slate-600"></div>
-                <div className="text-center">
-                  <div className="text-xs text-gray-400 mb-1">團隊默契</div>
-                  <div className={`text-xl font-bold ${team >= 70 ? 'text-green-400' : team >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
-                    {team}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <header className="mb-6 text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">顧問養成計劃</h1>
+          <p className="text-sm sm:text-base text-gray-300 mb-4">
+            透過互動式情境題庫，提升你的專業顧問技能
+          </p>
         </header>
 
         <main className="grid grid-cols-12 gap-6">
