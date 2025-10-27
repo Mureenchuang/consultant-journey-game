@@ -1,0 +1,85 @@
+[
+  {
+    "title": "客戶之門：理解真實需求",
+    "context": "你被召喚至和之國的財務大樓，客戶需求模糊且反覆。",
+    "questions": [
+      {
+        "q": "客戶希望 AI 幫忙財務作業，你會怎麼回應？",
+        "options": [
+          {
+            "text": "請描述實際操作情境",
+            "result": "✅ 釐清需求並建立信任。",
+            "trust": 10,
+            "hint": "先聚焦問題再談方案。",
+            "link": "https://www.pmi.org/learning/library/project-requirements-gathering-6427"
+          },
+          {
+            "text": "沒問題，我們可以解決",
+            "result": "❌ 太快下結論，信任下降。",
+            "trust": -10,
+            "hint": "過早承諾容易造成期望落差。"
+          },
+          {
+            "text": "了解，我們可以協助自動化",
+            "result": "⚠️ 尚可，但偏早給方案。",
+            "trust": 0,
+            "hint": "先聚焦「問題」再談「解法」。"
+          }
+        ]
+      },
+      {
+        "q": "客戶第二次會議推翻上次決策，你會怎麼辦？",
+        "options": [
+          {
+            "text": "請說明改變原因",
+            "result": "✅ 探詢背景是專業表現。",
+            "trust": 10,
+            "hint": "中立態度理解改變原因。"
+          },
+          {
+            "text": "上次不是確認過嗎？",
+            "result": "❌ 容易引發防衛。",
+            "trust": -10,
+            "hint": "責備語氣破壞信任。"
+          },
+          {
+            "text": "照新方向改",
+            "result": "⚠️ 無風險評估。",
+            "trust": -5,
+            "hint": "盲目配合可能導致時程與成本風險。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "專案啟動與規劃：範疇與變更管理",
+    "context": "本模組聚焦於專案目標、範疇和技術基礎的清晰度。",
+    "questions": [
+      {
+        "q": "客戶要求新增 LINE 通知功能，但不在 SOW 中，您怎麼做？",
+        "options": [
+          {
+            "text": "吸收變更以維持關係",
+            "result": "❌ 將風險轉給團隊。",
+            "trust": -10,
+            "hint": "需透過正式 CR 流程。"
+          },
+          {
+            "text": "堅持 SOW 原則",
+            "result": "⚠️ 強硬態度可能破壞信任。",
+            "trust": -5,
+            "hint": "需平衡範疇管理與客戶關係。"
+          },
+          {
+            "text": "啟動 Change Request 流程評估可行性",
+            "result": "✅ 正確做法。",
+            "trust": 10,
+            "hint": "PM 應管理專案範疇及驗收標準。",
+            "link": "https://www.pmi.org/learning/library/change-management-process-6605"
+          }
+        ]
+      }
+    ]
+  }
+]
