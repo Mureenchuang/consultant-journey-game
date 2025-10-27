@@ -464,70 +464,73 @@ export default function ConsultantJourney() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white p-6">
-      <div className="max-w-5xl mx-auto bg-slate-900/60 rounded-2xl p-6 shadow-2xl border border-slate-700">
-        <header className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl font-extrabold">顧問養成計劃：The Consultant's Journey</h1>
-            <p className="text-sm opacity-80">模組化情境題庫 — 答題後顯示解析、補充案例與外部延伸學習。</p>
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white p-3 sm:p-6">
+      <div className="max-w-5xl mx-auto bg-slate-900/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl border border-slate-700">
+        <header className="mb-4 sm:mb-6">
+          <div className="text-center sm:text-left mb-4">
+            <h1 className="text-xl sm:text-2xl font-extrabold leading-tight">顧問養成計劃</h1>
+            <h2 className="text-sm sm:text-base text-gray-300 mt-1">The Consultant's Journey</h2>
+            <p className="text-xs sm:text-sm opacity-80 mt-2">模組化情境題庫 — 答題後顯示解析、補充案例與外部延伸學習。</p>
           </div>
-          <div className="text-right">
-            <div className="text-xs opacity-80">信任值 / 團隊默契</div>
-            <div className="font-medium">{trust} / {team}</div>
+          <div className="flex justify-center sm:justify-end">
+            <div className="bg-slate-800/50 px-4 py-2 rounded-lg">
+              <div className="text-xs opacity-80 text-center">信任值 / 團隊默契</div>
+              <div className="font-medium text-center text-lg">{trust} / {team}</div>
+            </div>
           </div>
         </header>
 
         <main className="grid grid-cols-12 gap-6">
-          <section className="col-span-8">
+          <section className="col-span-12 lg:col-span-8">
             {step === 0 && (
               <div>
                 {/* 說明區塊 - 明顯區分設計 */}
-                <div className="mb-6 p-6 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl border border-blue-500/30">
+                <div className="mb-4 sm:mb-6 p-4 sm:p-6 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-lg sm:rounded-xl border border-blue-500/30">
                   <div className="flex items-center mb-3">
                     <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
-                    <h2 className="text-xl font-bold text-blue-400">開始你的顧問之路</h2>
+                    <h2 className="text-lg sm:text-xl font-bold text-blue-400">開始你的顧問之路</h2>
                   </div>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                     歡迎來到顧問能力訓練系統！選擇下方任一模組開始挑戰，或依序完成所有模組獲得完整訓練體驗。
                     每個模組都包含實務情境題目，幫助你提升專業顧問技能。
                   </p>
                 </div>
 
                 {/* 模組選項 - 卡片式設計 */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-gray-200 mb-4 flex items-center">
-                    <span className="w-1 h-6 bg-amber-400 rounded mr-3"></span>
+                <div className="mb-4 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-200 mb-3 sm:mb-4 flex items-center">
+                    <span className="w-1 h-5 sm:h-6 bg-amber-400 rounded mr-3"></span>
                     選擇訓練模組
                   </h3>
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-3 sm:gap-4">
                     {modules.map((m, i) => (
                       <button
                         key={m.id}
                         onClick={() => startModule(i)}
-                        className="group text-left p-5 rounded-xl bg-slate-800/60 hover:bg-slate-700/80 border border-slate-600/50 hover:border-slate-500 transition-all duration-200 transform hover:scale-[1.02]"
+                        className="group text-left p-4 sm:p-5 rounded-lg sm:rounded-xl bg-slate-800/60 hover:bg-slate-700/80 border border-slate-600/50 hover:border-slate-500 transition-all duration-200 transform hover:scale-[1.02]"
                       >
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center mb-2">
-                              <span className="inline-block w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-500 text-black text-sm font-bold rounded-full flex items-center justify-center mr-3">
+                              <span className="inline-block w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-amber-400 to-orange-500 text-black text-xs sm:text-sm font-bold rounded-full flex items-center justify-center mr-3 flex-shrink-0">
                                 {i + 1}
                               </span>
-                              <h4 className="font-bold text-white group-hover:text-amber-400 transition-colors">
+                              <h4 className="font-bold text-white group-hover:text-amber-400 transition-colors text-sm sm:text-base">
                                 {m.title}
                               </h4>
                             </div>
-                            <p className="text-sm text-gray-300 mb-3 ml-11">{m.intro}</p>
-                            <div className="flex items-center ml-11">
+                            <p className="text-xs sm:text-sm text-gray-300 mb-3 ml-10 sm:ml-11">{m.intro}</p>
+                            <div className="flex items-center ml-10 sm:ml-11 flex-wrap gap-2">
                               <span className="text-xs bg-slate-700 text-gray-300 px-2 py-1 rounded-full">
                                 {m.questions.length} 題
                               </span>
-                              <span className="text-xs text-gray-400 ml-2">
+                              <span className="text-xs text-gray-400">
                                 約 {m.questions.length * 2} 分鐘
                               </span>
                             </div>
                           </div>
-                          <div className="text-slate-400 group-hover:text-amber-400 transition-colors">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="text-slate-400 group-hover:text-amber-400 transition-colors flex-shrink-0">
+                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                           </div>
@@ -541,7 +544,7 @@ export default function ConsultantJourney() {
                 <div className="text-center">
                   <button 
                     onClick={() => startModule(0)} 
-                    className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-bold text-lg hover:from-amber-600 hover:to-orange-600 transition-all transform hover:scale-105 shadow-xl"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg sm:rounded-xl font-bold text-base sm:text-lg hover:from-amber-600 hover:to-orange-600 transition-all transform hover:scale-105 shadow-xl"
                   >
                     開始冒險
                   </button>
@@ -554,20 +557,20 @@ export default function ConsultantJourney() {
                 key={`module-${currentModule.id}-q${currentQuestion.id}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="p-6 bg-slate-800/50 rounded-lg"
+                className="p-4 sm:p-6 bg-slate-800/50 rounded-lg"
               >
-                <h3 className="text-xl font-bold mb-1">{currentModule.title}</h3>
-                <p className="text-sm opacity-80 mb-4">{currentModule.intro}</p>
-                <div className="bg-slate-900 p-4 rounded">
+                <h3 className="text-lg sm:text-xl font-bold mb-1">{currentModule.title}</h3>
+                <p className="text-xs sm:text-sm opacity-80 mb-3 sm:mb-4">{currentModule.intro}</p>
+                <div className="bg-slate-900 p-3 sm:p-4 rounded">
                   {!feedback ? (
                     <>
-                      <p className="mb-4">{currentQuestion.q}</p>
-                      <div className="space-y-2">
+                      <p className="mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">{currentQuestion.q}</p>
+                      <div className="space-y-2 sm:space-y-3">
                         {currentQuestion.options.map((opt, idx) => (
                           <button
                             key={idx}
                             onClick={() => handleChoice(opt)}
-                            className="w-full text-left p-3 rounded bg-indigo-700 hover:bg-indigo-600"
+                            className="w-full text-left p-3 sm:p-4 rounded bg-indigo-700 hover:bg-indigo-600 text-sm sm:text-base leading-relaxed transition-colors"
                           >
                             {opt.text}
                           </button>
@@ -576,26 +579,26 @@ export default function ConsultantJourney() {
                     </>
                   ) : (
                     <div>
-                      <p className="text-lg font-semibold mb-2">{feedback.result}</p>
-                      <p className="text-sm opacity-80 mb-3">💡 {feedback.hint}</p>
+                      <p className="text-base sm:text-lg font-semibold mb-2">{feedback.result}</p>
+                      <p className="text-xs sm:text-sm opacity-80 mb-3">💡 {feedback.hint}</p>
                       <div className="bg-white/5 p-3 rounded mb-3">
-                        <div className="font-medium">補充案例</div>
-                        <p className="text-sm opacity-80">{feedback.case}</p>
+                        <div className="font-medium text-sm sm:text-base">補充案例</div>
+                        <p className="text-xs sm:text-sm opacity-80 mt-1 leading-relaxed">{feedback.case}</p>
                       </div>
                       <div className="mb-3">
-                        <div className="font-medium">延伸學習</div>
-                        <ul className="text-sm opacity-80 list-disc list-inside mt-1">
+                        <div className="font-medium text-sm sm:text-base">延伸學習</div>
+                        <ul className="text-xs sm:text-sm opacity-80 list-disc list-inside mt-1 space-y-1">
                           {feedback.links && feedback.links.map((l, i) => (
                             <li key={i}>
-                              <a className="underline" href={l} target="_blank" rel="noreferrer">
+                              <a className="underline break-all" href={l} target="_blank" rel="noreferrer">
                                 {l}
                               </a>
                             </li>
                           ))}
                         </ul>
                       </div>
-                      <div className="flex gap-2">
-                        <button onClick={handleNext} className="px-4 py-2 bg-emerald-500 rounded">
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <button onClick={handleNext} className="px-4 py-2 bg-emerald-500 rounded text-sm sm:text-base font-medium">
                           下一題
                         </button>
                         <button
@@ -603,7 +606,7 @@ export default function ConsultantJourney() {
                             setFeedback(null);
                             setShowHintBox(false);
                           }}
-                          className="px-4 py-2 bg-slate-700 rounded"
+                          className="px-4 py-2 bg-slate-700 rounded text-sm sm:text-base"
                         >
                           關閉解析
                         </button>
@@ -802,10 +805,10 @@ export default function ConsultantJourney() {
             )}
           </section>
 
-          <aside className="col-span-4">
-            <div className="p-4 bg-slate-800/40 rounded sticky top-6">
-              <h4 className="font-semibold">評分機制說明</h4>
-              <div className="mt-3 text-sm opacity-80 space-y-2">
+          <aside className="col-span-12 lg:col-span-4 order-first lg:order-last">
+            <div className="p-3 sm:p-4 bg-slate-800/40 rounded sticky top-6">
+              <h4 className="font-semibold text-sm sm:text-base">評分機制說明</h4>
+              <div className="mt-2 sm:mt-3 text-xs sm:text-sm opacity-80 space-y-1 sm:space-y-2">
                 <div>
                   <div className="font-medium text-green-400">✅ 正確選擇：+10 分</div>
                   <div className="text-xs">展現專業顧問思維與最佳實務</div>
@@ -820,16 +823,16 @@ export default function ConsultantJourney() {
                 </div>
               </div>
               
-              <div className="mt-4 pt-4 border-t border-slate-700">
-                <h5 className="font-semibold">目前分數</h5>
+              <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-700">
+                <h5 className="font-semibold text-sm sm:text-base">目前分數</h5>
                 <div className="mt-2 space-y-1">
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span>信任值：</span>
                     <span className={`font-medium ${trust >= 70 ? 'text-green-400' : trust >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
                       {trust}/100
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span>團隊默契：</span>
                     <span className={`font-medium ${team >= 70 ? 'text-green-400' : team >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
                       {team}/100
@@ -843,8 +846,8 @@ export default function ConsultantJourney() {
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-slate-700">
-                <h5 className="font-semibold">遊戲說明</h5>
+              <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-700 lg:block hidden">
+                <h5 className="font-semibold text-sm sm:text-base">遊戲說明</h5>
                 <ul className="text-xs opacity-80 list-disc list-inside mt-2 space-y-1">
                   <li>每題選項會隨機排列</li>
                   <li>答題後顯示詳細解析與案例</li>
