@@ -10,8 +10,7 @@ import html2canvas from 'html2canvas';
 
 export default function ConsultantJourney() {
   const [step, setStep] = useState(0); // 0: intro/module select, 1: playing, 999: finished
-  const [trust, setTrust] = useState(50);
-  const [team, setTeam] = useState(50);
+  const [score, setScore] = useState(50);
   const [chapter, setChapter] = useState(0); // index into modules
   const [questionIndex, setQuestionIndex] = useState(0);
   const [feedback, setFeedback] = useState(null);
@@ -425,16 +424,19 @@ export default function ConsultantJourney() {
     setChapter(index);
     setQuestionIndex(0);
     setStep(1);
-    setTrust(50);
-    setTeam(50);
+    setScore(50);
     setFeedback(null);
     setShowHintBox(false);
   };
 
   const handleChoice = (option) => {
     if (!option) return;
-    if (typeof option.trust === 'number') setTrust((t) => clamp(t + option.trust));
-    if (typeof option.team === 'number') setTeam((t) => clamp(t + option.team));
+    // 計算綜合分數：信任值和團隊默契的平均
+    const trustScore = option.trust || 0;
+    const teamScore = option.team || 0;
+    const combinedScore = Math.round((trustScore + teamScore) / 2);
+    
+    setScore((s) => clamp(s + combinedScore));
     setFeedback(option);
     setShowHintBox(true);
   };
@@ -457,8 +459,7 @@ export default function ConsultantJourney() {
 
   const resetAll = () => {
     setStep(0);
-    setTrust(50);
-    setTeam(50);
+    setScore(50);
     setChapter(0);
     setQuestionIndex(0);
     setFeedback(null);
@@ -486,9 +487,9 @@ export default function ConsultantJourney() {
       
       // 獲取等級名稱
       let levelName = '學習顧問';
-      if (trust >= 80 && team >= 80) levelName = '傳奇顧問';
-      else if (trust >= 70 && team >= 70) levelName = '資深顧問';
-      else if (trust >= 50 && team >= 50) levelName = '合格顧問';
+      if (score >= 80) levelName = '傳奇顧問';
+      else if (score >= 70) levelName = '資深顧問';
+      else if (score >= 60) levelName = '合格顧問';
       
       pdf.save(`顧問養成計劃證書_${levelName}_${new Date().toLocaleDateString('zh-TW')}.pdf`);
     } catch (error) {
@@ -677,7 +678,7 @@ export default function ConsultantJourney() {
 
                   {/* 等級徽章 - 大型顯示 */}
                   <div className="text-center mb-8">
-                    {trust >= 80 && team >= 80 && (
+                    {score >= 80 && (
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -703,7 +704,7 @@ export default function ConsultantJourney() {
                       </motion.div>
                     )}
                     
-                    {trust >= 70 && team >= 70 && (trust < 80 || team < 80) && (
+                    {score >= 70 && score < 80 && (
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -729,7 +730,7 @@ export default function ConsultantJourney() {
                       </motion.div>
                     )}
                     
-                    {trust >= 50 && team >= 50 && (trust < 70 || team < 70) && (
+                    {score >= 60 && score < 70 && (
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -755,7 +756,7 @@ export default function ConsultantJourney() {
                       </motion.div>
                     )}
                     
-                    {(trust < 50 || team < 50) && (
+                    {score < 60 && (
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -783,22 +784,14 @@ export default function ConsultantJourney() {
                   </div>
 
                   {/* 分數展示 */}
-                  <div className="flex justify-center gap-12 mb-6">
+                  <div className="flex justify-center mb-6">
                     <div className="text-center">
-                      <div className="text-4xl font-bold mb-2">
-                        <span className={trust >= 70 ? 'text-green-400' : trust >= 40 ? 'text-yellow-400' : 'text-red-400'}>
-                          {trust}
+                      <div className="text-5xl font-bold mb-2">
+                        <span className={score >= 70 ? 'text-green-400' : score >= 60 ? 'text-yellow-400' : 'text-red-400'}>
+                          {score}
                         </span>
                       </div>
-                      <div className="text-sm text-gray-300 font-medium">客戶信任值</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-4xl font-bold mb-2">
-                        <span className={team >= 70 ? 'text-green-400' : team >= 40 ? 'text-yellow-400' : 'text-red-400'}>
-                          {team}
-                        </span>
-                      </div>
-                      <div className="text-sm text-gray-300 font-medium">團隊默契</div>
+                      <div className="text-base text-gray-300 font-medium">顧問分數</div>
                     </div>
                   </div>
 
@@ -852,24 +845,19 @@ export default function ConsultantJourney() {
               
               <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-700">
                 <h5 className="font-semibold text-sm sm:text-base">目前分數</h5>
-                <div className="mt-2 space-y-1">
-                  <div className="flex justify-between text-xs sm:text-sm">
-                    <span>信任值：</span>
-                    <span className={`font-medium ${trust >= 70 ? 'text-green-400' : trust >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
-                      {trust}/100
+                <div className="mt-2 text-center">
+                  <div className="text-2xl font-bold mb-1">
+                    <span className={`${score >= 70 ? 'text-green-400' : score >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
+                      {score}
                     </span>
                   </div>
-                  <div className="flex justify-between text-xs sm:text-sm">
-                    <span>團隊默契：</span>
-                    <span className={`font-medium ${team >= 70 ? 'text-green-400' : team >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
-                      {team}/100
-                    </span>
-                  </div>
+                  <div className="text-xs sm:text-sm text-gray-300">顧問分數</div>
                 </div>
-                <div className="mt-2 text-xs opacity-70">
-                  {trust >= 70 && team >= 70 && '🏆 優秀顧問'}
-                  {trust >= 50 && team >= 50 && trust < 70 && team < 70 && '👍 合格顧問'}
-                  {(trust < 50 || team < 50) && '📚 需要加強'}
+                <div className="mt-2 text-xs opacity-70 text-center">
+                  {score >= 80 && '傳奇顧問'}
+                  {score >= 70 && score < 80 && '資深顧問'}
+                  {score >= 60 && score < 70 && '合格顧問'}
+                  {score < 60 && '學習顧問'}
                 </div>
               </div>
 
