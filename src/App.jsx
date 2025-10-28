@@ -708,9 +708,7 @@ export default function ConsultantJourney() {
                           <div className="absolute -top-3 -right-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black text-xs px-3 py-1 rounded-full font-bold shadow-lg">
                             MAX LEVEL
                           </div>
-                          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white text-xs px-4 py-1 rounded-full font-bold">
-                            80+ / 80+
-                          </div>
+
                         </div>
                         <h3 className="text-3xl font-bold text-white mb-2">傳奇顧問</h3>
                         <p className="text-gray-200 max-w-md mx-auto">
@@ -734,9 +732,7 @@ export default function ConsultantJourney() {
                           <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
                             SENIOR
                           </div>
-                          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-yellow-600 text-white text-xs px-4 py-1 rounded-full font-bold">
-                            70+ / 70+
-                          </div>
+
                         </div>
                         <h3 className="text-3xl font-bold text-white mb-2">玩家顧問</h3>
                         <p className="text-gray-200 max-w-md mx-auto">
@@ -760,9 +756,7 @@ export default function ConsultantJourney() {
                           <div className="absolute -top-3 -right-3 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
                             CERTIFIED
                           </div>
-                          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs px-4 py-1 rounded-full font-bold">
-                            50+ / 50+
-                          </div>
+
                         </div>
                         <h3 className="text-3xl font-bold text-white mb-2">新手顧問</h3>
                         <p className="text-gray-200 max-w-md mx-auto">
@@ -786,9 +780,7 @@ export default function ConsultantJourney() {
                           <div className="absolute -top-3 -right-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
                             TRAINEE
                           </div>
-                          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-orange-600 text-white text-xs px-4 py-1 rounded-full font-bold">
-                            ENTRY LEVEL
-                          </div>
+
                         </div>
                         <h3 className="text-3xl font-bold text-white mb-2">實習顧問</h3>
                         <p className="text-gray-200 max-w-md mx-auto">
@@ -808,6 +800,11 @@ export default function ConsultantJourney() {
                       </div>
                       <div className="text-base text-gray-300 font-medium">顧問分數</div>
                     </div>
+                  </div>
+
+                  {/* 測驗日期 */}
+                  <div className="text-center mb-6">
+                    <p className="text-xs text-gray-400">測驗日期：{new Date().toLocaleDateString('zh-TW')}</p>
                   </div>
 
 
