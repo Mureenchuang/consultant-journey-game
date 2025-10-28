@@ -436,7 +436,10 @@ export default function ConsultantJourney() {
     const teamScore = option.team || 0;
     const combinedScore = Math.round((trustScore + teamScore) / 2);
     
-    setScore((s) => clamp(s + combinedScore));
+    // 立即更新分數
+    const newScore = clamp(score + combinedScore);
+    setScore(newScore);
+    
     setFeedback(option);
     setShowHintBox(true);
   };
@@ -482,7 +485,17 @@ export default function ConsultantJourney() {
         height: certificateElement.scrollHeight,
         width: certificateElement.scrollWidth,
         scrollX: 0,
-        scrollY: 0
+        scrollY: 0,
+        onclone: (clonedDoc) => {
+          // 確保 PDF 中的文字置中
+          const buttons = clonedDoc.querySelectorAll('button');
+          buttons.forEach(btn => {
+            btn.style.textAlign = 'center';
+            btn.style.display = 'flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
+          });
+        }
       });
       
       const imgData = canvas.toDataURL('image/png');
@@ -680,7 +693,7 @@ export default function ConsultantJourney() {
 
                   {/* 證書標題 */}
                   <div className="text-center mb-6">
-                    <h1 className="text-xl font-bold text-yellow-400 mb-2">🎓 顧問能力認證證書</h1>
+                    <h1 className="text-xl font-bold text-yellow-400 mb-2">顧問能力認證證書</h1>
                     <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto"></div>
                   </div>
 
@@ -813,13 +826,13 @@ export default function ConsultantJourney() {
                   <div className="flex gap-4 justify-center">
                     <button 
                       onClick={downloadCertificate} 
-                      className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105 shadow-lg"
+                      className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105 shadow-lg text-center"
                     >
                       下載證書
                     </button>
                     <button 
                       onClick={resetAll} 
-                      className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold hover:from-amber-600 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg"
+                      className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold hover:from-amber-600 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg text-center"
                     >
                       再次挑戰
                     </button>
