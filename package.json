@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "homepage": "https://mureenchuang.github.io/consultant-journey-game",
   "dependencies": {
     "framer-motion": "^10.12.16",
     "html2canvas": "^1.4.1",
