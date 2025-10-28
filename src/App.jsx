@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 // Consultant Journey — Full interactive prototype
 // - 繁體中文題庫（模組化、含解析、補充案例與外部延伸連結）
@@ -463,6 +465,38 @@ export default function ConsultantJourney() {
     setShowHintBox(false);
   };
 
+  const downloadCertificate = async () => {
+    const certificateElement = document.getElementById('certificate');
+    if (!certificateElement) return;
+
+    try {
+      const canvas = await html2canvas(certificateElement, {
+        backgroundColor: '#1e293b',
+        scale: 2,
+        useCORS: true
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('landscape', 'mm', 'a4');
+      
+      const imgWidth = 297; // A4 landscape width
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      
+      // 獲取等級名稱
+      let levelName = '學習顧問';
+      if (trust >= 80 && team >= 80) levelName = '傳奇顧問';
+      else if (trust >= 70 && team >= 70) levelName = '資深顧問';
+      else if (trust >= 50 && team >= 50) levelName = '合格顧問';
+      
+      pdf.save(`顧問養成計劃證書_${levelName}_${new Date().toLocaleDateString('zh-TW')}.pdf`);
+    } catch (error) {
+      console.error('PDF 生成失敗:', error);
+      alert('證書下載失敗，請稍後再試');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white p-3 sm:p-6">
       <div className="max-w-5xl mx-auto bg-slate-900/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl border border-slate-700">
@@ -497,10 +531,9 @@ export default function ConsultantJourney() {
                   </h3>
                   <div className="grid grid-cols-1 gap-3 sm:gap-4">
                     {modules.map((m, i) => (
-                      <button
+                      <div
                         key={m.id}
-                        onClick={() => startModule(i)}
-                        className="group text-left p-4 sm:p-5 rounded-lg sm:rounded-xl bg-slate-800/60 hover:bg-slate-700/80 border border-slate-600/50 hover:border-slate-500 transition-all duration-200 transform hover:scale-[1.02]"
+                        className="text-left p-4 sm:p-5 rounded-lg sm:rounded-xl bg-slate-800/60 border border-slate-600/50"
                       >
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
@@ -508,7 +541,7 @@ export default function ConsultantJourney() {
                               <span className="inline-block w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-amber-400 to-orange-500 text-black text-xs sm:text-sm font-bold rounded-full flex items-center justify-center mr-3 flex-shrink-0">
                                 {i + 1}
                               </span>
-                              <h4 className="font-bold text-white group-hover:text-amber-400 transition-colors text-sm sm:text-base">
+                              <h4 className="font-bold text-gray-300 text-sm sm:text-base">
                                 {m.title}
                               </h4>
                             </div>
@@ -522,13 +555,13 @@ export default function ConsultantJourney() {
                               </span>
                             </div>
                           </div>
-                          <div className="text-slate-400 group-hover:text-amber-400 transition-colors flex-shrink-0">
+                          <div className="text-slate-400 transition-colors flex-shrink-0">
                             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                           </div>
                         </div>
-                      </button>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -615,6 +648,7 @@ export default function ConsultantJourney() {
 
             {step === 999 && (
               <motion.div
+                id="certificate"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -776,22 +810,22 @@ export default function ConsultantJourney() {
                   {/* 按鈕 */}
                   <div className="flex gap-4 justify-center">
                     <button 
+                      onClick={downloadCertificate} 
+                      className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold hover:from-green-600 hover:to-emerald-600 transition-all transform hover:scale-105 shadow-lg"
+                    >
+                      下載證書
+                    </button>
+                    <button 
                       onClick={resetAll} 
                       className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold hover:from-amber-600 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg"
                     >
-                      🔄 再次挑戰
-                    </button>
-                    <button 
-                      onClick={() => setStep(0)} 
-                      className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg"
-                    >
-                      📚 選擇模組
+                      再次挑戰
                     </button>
                   </div>
 
                   {/* 分享提示 */}
                   <div className="text-center mt-6">
-                    <p className="text-xs text-gray-400">💡 截圖分享你的顧問證書，與同事一起提升專業技能！</p>
+                    <p className="text-xs text-gray-400">下載你的專業顧問證書，與同事分享你的成就！</p>
                   </div>
                 </div>
               </motion.div>
