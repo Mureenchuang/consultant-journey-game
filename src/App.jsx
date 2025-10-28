@@ -10,7 +10,7 @@ import html2canvas from 'html2canvas';
 
 export default function ConsultantJourney() {
   const [step, setStep] = useState(0); // 0: intro/module select, 1: playing, 999: finished
-  const [score, setScore] = useState(50);
+  const [score, setScore] = useState(60);
   const [chapter, setChapter] = useState(0); // index into modules
   const [questionIndex, setQuestionIndex] = useState(0);
   const [feedback, setFeedback] = useState(null);
@@ -424,7 +424,7 @@ export default function ConsultantJourney() {
     setChapter(index);
     setQuestionIndex(0);
     setStep(1);
-    setScore(50);
+    setScore(60);
     setFeedback(null);
     setShowHintBox(false);
   };
@@ -459,7 +459,7 @@ export default function ConsultantJourney() {
 
   const resetAll = () => {
     setStep(0);
-    setScore(50);
+    setScore(60);
     setChapter(0);
     setQuestionIndex(0);
     setFeedback(null);
@@ -471,25 +471,44 @@ export default function ConsultantJourney() {
     if (!certificateElement) return;
 
     try {
+      // 等待一下確保所有內容都渲染完成
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
       const canvas = await html2canvas(certificateElement, {
         backgroundColor: '#1e293b',
         scale: 2,
-        useCORS: true
+        useCORS: true,
+        allowTaint: true,
+        height: certificateElement.scrollHeight,
+        width: certificateElement.scrollWidth,
+        scrollX: 0,
+        scrollY: 0
       });
       
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('landscape', 'mm', 'a4');
       
-      const imgWidth = 297; // A4 landscape width
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const pdfWidth = 297; // A4 landscape width
+      const pdfHeight = 210; // A4 landscape height
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
       
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      // 計算適合的尺寸
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const finalWidth = imgWidth * ratio;
+      const finalHeight = imgHeight * ratio;
+      
+      // 居中放置
+      const x = (pdfWidth - finalWidth) / 2;
+      const y = (pdfHeight - finalHeight) / 2;
+      
+      pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
       
       // 獲取等級名稱
-      let levelName = '學習顧問';
+      let levelName = '實習顧問';
       if (score >= 80) levelName = '傳奇顧問';
-      else if (score >= 70) levelName = '資深顧問';
-      else if (score >= 60) levelName = '合格顧問';
+      else if (score >= 70) levelName = '玩家顧問';
+      else if (score >= 60) levelName = '新手顧問';
       
       pdf.save(`顧問養成計劃證書_${levelName}_${new Date().toLocaleDateString('zh-TW')}.pdf`);
     } catch (error) {
@@ -528,7 +547,7 @@ export default function ConsultantJourney() {
                 <div className="mb-4 sm:mb-6">
                   <h3 className="text-base sm:text-lg font-semibold text-gray-200 mb-3 sm:mb-4 flex items-center">
                     <span className="w-1 h-5 sm:h-6 bg-amber-400 rounded mr-3"></span>
-                    選擇訓練模組
+                    測驗模組說明
                   </h3>
                   <div className="grid grid-cols-1 gap-3 sm:gap-4">
                     {modules.map((m, i) => (
@@ -556,11 +575,7 @@ export default function ConsultantJourney() {
                               </span>
                             </div>
                           </div>
-                          <div className="text-slate-400 transition-colors flex-shrink-0">
-                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
+
                         </div>
                       </div>
                     ))}
@@ -723,7 +738,7 @@ export default function ConsultantJourney() {
                             70+ / 70+
                           </div>
                         </div>
-                        <h3 className="text-3xl font-bold text-white mb-2">資深顧問</h3>
+                        <h3 className="text-3xl font-bold text-white mb-2">玩家顧問</h3>
                         <p className="text-gray-200 max-w-md mx-auto">
                           展現出色的專業判斷與團隊協作能力！你具備豐富的實務經驗，能獨當一面處理複雜專案。
                         </p>
@@ -749,7 +764,7 @@ export default function ConsultantJourney() {
                             50+ / 50+
                           </div>
                         </div>
-                        <h3 className="text-3xl font-bold text-white mb-2">合格顧問</h3>
+                        <h3 className="text-3xl font-bold text-white mb-2">新手顧問</h3>
                         <p className="text-gray-200 max-w-md mx-auto">
                           具備基本顧問技能，持續精進可達更高水準！你已掌握核心概念，繼續練習將更上一層樓。
                         </p>
@@ -775,7 +790,7 @@ export default function ConsultantJourney() {
                             ENTRY LEVEL
                           </div>
                         </div>
-                        <h3 className="text-3xl font-bold text-white mb-2">學習顧問</h3>
+                        <h3 className="text-3xl font-bold text-white mb-2">實習顧問</h3>
                         <p className="text-gray-200 max-w-md mx-auto">
                           需要更多實務經驗，建議重複練習強化技能！每次挑戰都是成長的機會，繼續加油！
                         </p>
@@ -795,10 +810,7 @@ export default function ConsultantJourney() {
                     </div>
                   </div>
 
-                  {/* 認證日期 */}
-                  <div className="text-center mb-6">
-                    <p className="text-xs text-gray-400">認證日期：{new Date().toLocaleDateString('zh-TW')}</p>
-                  </div>
+
 
                   {/* 按鈕 */}
                   <div className="flex gap-4 justify-center">
@@ -855,19 +867,27 @@ export default function ConsultantJourney() {
                 </div>
                 <div className="mt-2 text-xs opacity-70 text-center">
                   {score >= 80 && '傳奇顧問'}
-                  {score >= 70 && score < 80 && '資深顧問'}
-                  {score >= 60 && score < 70 && '合格顧問'}
-                  {score < 60 && '學習顧問'}
+                  {score >= 70 && score < 80 && '玩家顧問'}
+                  {score >= 60 && score < 70 && '新手顧問'}
+                  {score < 60 && '實習顧問'}
+                </div>
+              </div>
+
+              <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-700">
+                <h5 className="font-semibold text-sm sm:text-base">顧問等級說明</h5>
+                <div className="text-xs opacity-80 mt-2 space-y-1">
+                  <div>傳奇顧問：80+ 分</div>
+                  <div>玩家顧問：70-79 分</div>
+                  <div>新手顧問：60-69 分</div>
+                  <div>實習顧問：60 分以下</div>
                 </div>
               </div>
 
               <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-slate-700 lg:block hidden">
-                <h5 className="font-semibold text-sm sm:text-base">遊戲說明</h5>
+                <h5 className="font-semibold text-sm sm:text-base">測驗說明</h5>
                 <ul className="text-xs opacity-80 list-disc list-inside mt-2 space-y-1">
                   <li>每題選項會隨機排列</li>
                   <li>答題後顯示詳細解析與案例</li>
-                  <li>包含延伸學習資源連結</li>
-                  <li>可跳躍至任一模組練習</li>
                 </ul>
               </div>
             </div>
