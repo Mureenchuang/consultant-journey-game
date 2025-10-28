@@ -35,7 +35,7 @@ export default function ConsultantJourney() {
       questions: [
         {
           id: 'm1-q1',
-          q: '客戶提出新增 LINE 通知功能，但此項目不在 SOW 範圍且會導致延期。你會怎麼處理？',
+          q: '客戶提出新增 LINE 通知功能，但此項目不在 SOW（Statement of Work)範圍且會導致延期。你會怎麼處理？',
           options: [
             {
               text: '立即吸收變更以維持客戶關係。',
@@ -47,11 +47,11 @@ export default function ConsultantJourney() {
               links: ['https://www.pmi.org/', 'https://www.atlassian.com/work-management/change-request']
             },
             {
-              text: '堅持拒絕客戶，要求完全遵守原 SOW。',
+              text: '堅持拒絕客戶，要求完全遵守原 SOW(Statement of Work)。',
               result: '⚠️ 拒絕雖保範圍但缺乏彈性，可能損害合作關係。',
               trust: -5,
               team: 0,
-              hint: '可透過 CR 流程提出正式方案並協商優先順序。',
+              hint: '可透過 CR (變更請求)流程提出正式方案並協商優先順序。',
               case: '一案因過度堅持而導致客戶流失，後續信任修復困難。',
               links: ['https://hbr.org/', 'https://www.pmi.org/']
             },
@@ -201,10 +201,10 @@ export default function ConsultantJourney() {
         },
         {
           id: 'm2-q2',
-          q: 'PdM 希望與舊 ERP 做即時雙向整合，但技術限制明顯，你會？',
+          q: 'PM 希望與舊 ERP 做即時雙向整合，但技術限制明顯，你會？',
           options: [
             {
-              text: '直接拒絕 PdM 要求。',
+              text: '直接拒絕 PM 要求。',
               result: '⚠️ 拒絕缺乏溝通與替代方案。',
               trust: -5,
               team: -10,
@@ -295,7 +295,7 @@ export default function ConsultantJourney() {
               links: ['https://hbr.org/', 'https://www.pmi.org/']
             },
             {
-              text: '堅持依 PRD 執行，指出客戶記錯或誤解。',
+              text: '堅持依 PRD (Product Requirement Document)執行，指出客戶記錯或誤解。',
               result: '⚠️ 硬碰易破壞關係，需用視覺工具澄清。',
               trust: -5,
               team: 0,
@@ -304,7 +304,7 @@ export default function ConsultantJourney() {
               links: ['https://www.atlassian.com/', 'https://www.nngroup.com/']
             },
             {
-              text: '傾聽並使用原型輔助溝通，將不滿轉為 CR 並說明時程與成本影響。',
+              text: '傾聽並使用原型輔助溝通，將不滿轉為 CR (變更請求)並說明時程與成本影響。',
               result: '✅ 理性處理衝突並保護雙方權益。',
               trust: +10,
               team: +5,
